@@ -1,26 +1,32 @@
 package ru.netology.authorization.data;
 
-import ru.netology.authorization.user.Authorities;
+import jakarta.validation.constraints.NotBlank;
 
-import java.util.List;
+import java.util.Objects;
 
 public class User {
-    private String username;
+    @NotBlank
+    private String user;
+
+    @NotBlank
     private String password;
-    private List<Authorities> authorities;
 
-    public User(String username, String password,  List<Authorities> authorities) {
-        this.username = username;
+    public User() {
+    }
+
+    public User(String user, String password) {
+        if (user == null || password == null) throw new NullPointerException();
+        this.user = user;
         this.password = password;
-        this.authorities = authorities;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(String user) {
+        if (user == null) throw new NullPointerException();
+        this.user = user;
     }
 
     public String getPassword() {
@@ -28,14 +34,28 @@ public class User {
     }
 
     public void setPassword(String password) {
+        if (password == null) throw new NullPointerException();
         this.password = password;
     }
 
-    public List<Authorities> getAuthorities() {
-        return authorities;
+    @Override
+    public String toString() {
+        return user;
     }
 
-    public void setAuthorities(List<Authorities> authorities) {
-        this.authorities = authorities;
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != getClass()) {
+            return false;
+        }
+        return ((User)obj).getUser().equals(this.getUser()) && ((User)obj).getPassword().equals(this.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user, password);
     }
 }

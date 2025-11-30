@@ -2,6 +2,7 @@ package ru.netology.authorization.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.netology.authorization.exception.InvalidCredentials;
@@ -19,4 +20,8 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<String> unauthorizedUserHandler(UnauthorizedUser e){
         return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> methodArgumentNotValidHandler(MethodArgumentNotValidException e){
+        return new ResponseEntity<>("Incorrect argument!", HttpStatus.BAD_REQUEST);}
 }

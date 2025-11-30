@@ -15,10 +15,10 @@ public class JavaConfig {
     public UserRepository userRepository() {
         var rep = new UserRepository();
         rep.getUsers().putAll(Map.of(
-                "admin", new User("admin", "admin", List.of(Authorities.READ, Authorities.WRITE, Authorities.DELETE)),
-                "user", new User("user", "password", List.of(Authorities.READ)),
-                "aboba", new User("aboba", "zigota", List.of())
-        ));
+                new User("admin", "admin"), List.of(Authorities.READ, Authorities.WRITE, Authorities.DELETE),
+                new User("user", "password"), List.of(Authorities.READ),
+                new User("aboba", "zigota"), List.of())
+        );
         return rep;
     }
 }
